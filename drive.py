@@ -10,7 +10,8 @@ import yamlReader
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googleapis.com/auth/drive']
 
 
-def updateConfiguration():
+
+def main():
     creds = None
     # The file calendar.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -56,3 +57,7 @@ def updateConfiguration():
     except:
         print(
             """\nERROR: cannot access Google Drive to update configuration file\n\nWill instead use data from last successful update...""")
+
+
+if __name__ == '__main__':
+    main()

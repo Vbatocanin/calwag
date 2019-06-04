@@ -10,6 +10,7 @@ from base64 import urlsafe_b64encode
 from apiclient import errors
 from email.mime.text import MIMEText
 
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send']
 
