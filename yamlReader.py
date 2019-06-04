@@ -51,17 +51,17 @@ def getYaml():
     return yamlName
 
 
-def getHollidays():
+def getHolidays():
     # getting string representations in string form
-    hollidayList = []
+    holidayList = []
     with open(yamlName, "r") as f:
         y = yaml.load(f, Loader=yamlordereddictloader.Loader)
         for (attribute, value) in y.items():
-            if attribute == "bank-hollidays":
+            if attribute == "bank-holidays":
                 for day in value:
-                    hollidayList.append(day)
+                    holidayList.append(day)
                 break
-    return hollidayList
+    return holidayList
 
 
 def getSender():

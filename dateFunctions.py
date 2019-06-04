@@ -3,7 +3,6 @@ from datetime import timedelta
 import yamlReader
 
 
-
 # Function for determining the year and number of days in a month
 # judging from current date, for calculating interval of currentMonth-1,minDays to currentMonth-1,maxDays
 
@@ -34,9 +33,9 @@ def getLastDayDate(date):
     return newDate
 
 
-def isHolliday(curDate):
-    # gets hollidays
-    [hDays, hDates, hSpecificDates] = getHollidays()
+def isHoliday(curDate):
+    # gets holidays
+    [hDays, hDates, hSpecificDates] = getHolidays()
 
     weekDay = curDate.weekday()
     day = curDate.day
@@ -47,7 +46,7 @@ def isHolliday(curDate):
     if weekDay in hDays:
         return True
 
-    # checks if it's a holliday by date
+    # checks if it's a holiday by date
     for tmpDate in hDates:
         if day == tmpDate.day and month == tmpDate.month:
             return True
@@ -60,8 +59,8 @@ def isHolliday(curDate):
     return False
 
 
-def getHollidays():
-    hollidaysList = yamlReader.getHollidays()
+def getHolidays():
+    holidaysList = yamlReader.getHolidays()
     dayNames = {"Mon": 0,
                 "Tue": 1,
                 "Wed": 2,
@@ -72,7 +71,7 @@ def getHollidays():
     sundays = []
     dateslist = []
     specificDateslist = []
-    for tmpDay in hollidaysList:
+    for tmpDay in holidaysList:
         # it's a day of the week
         if len(tmpDay) == 3:
             sundays.append(dayNames[tmpDay])
