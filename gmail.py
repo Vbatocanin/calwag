@@ -76,4 +76,4 @@ def generateAndSendEmail(start, end):
 
 
 if __name__ == '__main__':
-    generateAndSendEmail('0', '0')
+    generateAndSendEmail(None, None)
