@@ -37,12 +37,13 @@ def isHolliday(curDate):
     # gets hollidays
     [hDays, hDates, hSpecificDates] = getHollidays()
 
-    day = curDate.weekday()
+    weekDay = curDate.weekday()
+    day = curDate.day
     month = curDate.month
     year = curDate.year
 
     # checks if it's a sunday
-    if day in hDays:
+    if weekDay in hDays:
         return True
 
     # checks if it's a holliday by date
@@ -183,8 +184,8 @@ def getDates(start, end):
         return
 
 def main():
-    print(getHollidays())
-    isHolliday(datetime(2019,12,5))
+    return None
+
 
 
 if __name__ == '__main__':
