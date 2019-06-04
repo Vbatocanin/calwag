@@ -18,13 +18,13 @@ def getDefault():
 
 
 def getEmployeesList():
+    employeesList = []
     with open(yamlName, "r") as f:
         # yaml file opening and loading
         y = yaml.load(f, Loader=yamlordereddictloader.Loader)
         for (attribute, value) in y.items():
             # fetching employees list
             if (attribute == "employees"):
-                employeesList = []
                 for employee in value:
                     for (attribute, value) in employee.items():
                         if (attribute == "employee"):
