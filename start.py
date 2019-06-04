@@ -19,6 +19,7 @@ def yamlName():
     return fileName
 
 
+
 def main():
     if len(sys.argv) > 5:
         print("Wrong number of arguments.\n")
