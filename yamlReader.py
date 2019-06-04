@@ -2,12 +2,8 @@ import yaml
 import yamlordereddictloader
 import start
 
-
-# yamlName = "shatterhand-drive.yml"
 yamlName = start.yamlName()
 
-
-# yamlID = start.yamlID()
 
 def getDefault():
     defaultDay = -1

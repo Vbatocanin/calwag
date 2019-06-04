@@ -3,7 +3,6 @@ from datetime import timedelta
 import yamlReader
 
 
-
 # Function for determining the year and number of days in a month
 # judging from current date, for calculating interval of currentMonth-1,minDays to currentMonth-1,maxDays
 

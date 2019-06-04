@@ -5,7 +5,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-
 def main(start, end, mail):
     # fetch email server username
     username = yamlReader.getUsername()

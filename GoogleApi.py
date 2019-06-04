@@ -8,7 +8,6 @@ from google.auth.transport.requests import Request
 import dateFunctions
 import yamlReader
 
-
 # If modifying these scopes, delete the file calendar.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
@@ -97,7 +96,6 @@ def main(start, end):
         msg = msg + "  <tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th>" \
                     "<th>Total for employee:</th></tr>"
         msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
-        msg = msg + "<br>" + "-------------------------------------------------------------------------------"
 
     # Else, calculates dates accordingly
     else:
@@ -218,14 +216,14 @@ def main(start, end):
                                                                                        lateLateNum, lateLateCoef,
                                                                                        sundayNum, sundayCoef,
                                                                                        empWage))
-            msg = msg + "<tr><td>{}</td><td>{}x{}</td><td>{}x{}</td><td>{}x{}</td><td>{}x{}</td><td>{}</td></tr>".format(
+            msg = msg + "<tr><td>{}</td><td>{}x{}</td><td>{}x{}</td><td>{}x{}</td><td>{}x{}</td><td>{:8.2f}</td></tr>".format(
                 name, normalNum, normalCoef, lateNum,
                 lateCoef, lateLateNum, lateLateCoef,
                 sundayNum, sundayCoef, empWage)
 
     msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
     msgPrint = msgPrint + ("                                                       Total: {:8.2f}\n".format(grandTotal))
-    msg = msg + "<tr><td></td><td></td><td></td><td></td><td><b>Total:</b></td><td><b>{}</b></td></tr>".format(
+    msg = msg + "<tr><td></td><td></td><td></td><td></td><td><b>Total:</b></td><td><b>{:8.2f}</b></td></tr>".format(
         grandTotal)
 
     print(msgPrint)
