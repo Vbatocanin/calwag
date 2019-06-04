@@ -39,7 +39,7 @@ def main():
             drive.main()
             GoogleApi.main(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2:
-        if(sys.argv[2]=='-email'):
+        if(sys.argv[1]=='-email'):
             drive.main()
             gmail.main('0', '0')
         else:
