@@ -32,20 +32,37 @@ def getCreds():
         with open('calendar.pickle', 'wb') as token:
             pickle.dump(creds, token)
     return creds
-
-def getHoursAndWages(start, end):
-
-    creds = getCreds()
-    service = build('calendar', 'v3', credentials=creds)
+def formatMsg(beginTime,endTime):
     # message to be sent by mail
     msg = ""
     # message to be printed to terminal
     msgPrint = ""
 
-    # DATE GETTING SECTION
+    msgPrint = msgPrint + "\n"
+    msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.year, beginTime.month,
+                                                                      beginTime.day, endTime.year, endTime.month,
+                                                                      endTime.day, ))
+    msg = msg + "<tr><td colspan=" + str(6) + \
+          ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.year, beginTime.month,
+                                                                         beginTime.day, endTime.year,
+                                                                         endTime.month, endTime.day, )
+    msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th><th>" \
+                "Total for employee:</th></tr>"
+    msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
 
+    return [msg,msgPrint]
+
+def getHoursAndWages(start, end):
+
+    creds = getCreds()
+    service = build('calendar', 'v3', credentials=creds)
+
+    # DATE GETTING SECTION
     # If a date is not inputted, calculate wage from curMonth-2,defaultDay to curMonth-1,defaultDay
     # defaultDay is fetched from shatterhand2.yml as default_date_day
+    beginTime = None
+    endTime = None
+
     if (start == '0'):
         todayDate = datetime.now()
 
@@ -55,77 +72,28 @@ def getHoursAndWages(start, end):
         [monthGoogleEnd, yearGoogleEnd] = dateFunctions.dateLastMonth(todayDate.month, todayDate.year)
         [monthGoogleBegin, yearGoogleBegin] = dateFunctions.dateLastMonth(monthGoogleEnd, yearGoogleEnd)
 
-        # making begin and end time both for googleApi and datetime formatting
-        googleBeginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay).isoformat() + 'Z'
-        googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
+        # googleBeginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay).isoformat() + 'Z'
+        # googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
 
         beginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay)
         endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay)
 
-        # MSG FORMATTING
-        msgPrint = msgPrint + "\n"
-        msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.year, beginTime.month,
-                                                                          beginTime.day, endTime.year, endTime.month,
-                                                                          endTime.day, ))
-        msg = msg + "<tr><td colspan=" + str(6) + \
-              ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.year, beginTime.month,
-                                                                             beginTime.day, endTime.year,
-                                                                             endTime.month, endTime.day, )
-        msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th><th>" \
-                    "Total for employee:</th></tr>"
-        msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
-
     # in case of only d1 inputed, calculates from d1.month,d1.day to d1.month+1,d1.day-1
-    elif (end == '0'):
-        # Fetching initial date values
-        inputedDates = dateFunctions.getDates(start, None)
-        googleBeginTime = inputedDates[0].isoformat() + 'Z'
-        # msgPrint = msgPrint + ("Begin time: {}\n".format(googleBeginTime))
-
-        googleEndTime = inputedDates[1].isoformat() + 'Z'
-        # msgPrint = msgPrint + ("End time: {} \n".format(googleEndTime))
-
-        # MSG FORMATTING
-        msgPrint = msgPrint + ("\n")
-        msgPrint = msgPrint + (
-            "Wages from {}.{}.{} to {}.{}.{}\n".format(inputedDates[0].year, inputedDates[0].month, inputedDates[0].day,
-                                                       inputedDates[1].year, inputedDates[1].month,
-                                                       inputedDates[1].day))
-        msg = msg + "<tr><td colspan=" + str(6) + \
-              ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(inputedDates[0].year,
-                                                                             inputedDates[0].month, inputedDates[0].day,
-                                                                             inputedDates[1].year,
-                                                                             inputedDates[1].month,
-                                                                             inputedDates[1].day)
-        msg = msg + "  <tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th>" \
-                    "<th>Total for employee:</th></tr>"
-        msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
-
     # Else, calculates dates accordingly
     else:
+        if end == '0':
+            end=None
         # Fetching initial date values
         inputedDates = dateFunctions.getDates(start, end)
-        googleBeginTime = inputedDates[0].isoformat() + 'Z'
-        # msgPrint = msgPrint + ("Begin time: {}\n".format(googleBeginTime))
+        beginTime = inputedDates[0]
+        endTime = inputedDates[1]
 
-        googleEndTime = inputedDates[1].isoformat() + 'Z'
-        # msgPrint = msgPrint + ("End time: {} \n".format(googleEndTime))
+    googleBeginTime = beginTime.isoformat() + 'Z'
+    googleEndTime = endTime.isoformat() + 'Z'
 
-        # MSG FORMATTING
-        msgPrint = msgPrint + ("\n")
-        msgPrint = msgPrint + (
-            "Wages from {}.{}.{} to {}.{}.{}\n".format(inputedDates[0].year, inputedDates[0].month, inputedDates[0].day,
-                                                       inputedDates[1].year, inputedDates[1].month,
-                                                       inputedDates[1].day))
-        msg = msg + "<tr><td colspan=" + str(6) + \
-              ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(inputedDates[0].year,
-                                                                             inputedDates[0].month, inputedDates[0].day,
-                                                                             inputedDates[1].year,
-                                                                             inputedDates[1].month,
-                                                                             inputedDates[1].day)
-        msg = msg + "  <tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th>" \
-                    "<th>Total for employee:</th></tr>"
-        msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
+    # MSG FORMATTING
+    [msg,msgPrint] = formatMsg(beginTime,endTime)
+
 
     # Call the Calendar API
     calendar = yamlReader.getCalendarID()
