@@ -15,29 +15,29 @@ def start():
         print("Wrong number of arguments.\n")
     elif len(sys.argv) == 4:
         if (sys.argv[3] == '-email'):
-            drive.main()
+            drive.updateConfiguration()
             gmail.generateAndSendEmail(sys.argv[1], sys.argv[2])
         else:
             print("Wrong third argument")
-            drive.main()
+            drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     # both dates imputed with no email
     elif len(sys.argv) == 3:
         if (sys.argv[2] == '-email'):
-            drive.main()
+            drive.updateConfiguration()
             gmail.generateAndSendEmail(sys.argv[1], '0')
         else:
-            drive.main()
+            drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2:
         if(sys.argv[1]=='-email'):
-            drive.main()
+            drive.updateConfiguration()
             gmail.generateAndSendEmail('0', '0')
         else:
-            drive.main()
+            drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], '0')
     else:
-        drive.main()
+        drive.updateConfiguration()
         hoursAndWageCalculator.getHoursAndWages('0', '0')
 
 

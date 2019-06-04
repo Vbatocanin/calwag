@@ -7,7 +7,7 @@ import hoursAndWageCalculator
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googleapis.com/auth/drive']
 
 
-def main():
+def updateConfiguration():
     creds = hoursAndWageCalculator.getCreds('drive.pickle','drive.json')
 
     service = build('drive', 'v3', credentials=creds)
@@ -39,4 +39,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    updateConfiguration()
