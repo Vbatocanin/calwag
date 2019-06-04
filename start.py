@@ -30,7 +30,7 @@ def start():
         else:
             print("Wrong third argument")
             drive.main()
-            GoogleApi.getHoursAndWages(sys.argv[1], sys.argv[2])
+            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     # both dates imputed with no email
     elif len(sys.argv) == 3:
         if (sys.argv[2] == '-email'):
@@ -38,17 +38,17 @@ def start():
             gmail.generateAndSendEmail(sys.argv[1], '0')
         else:
             drive.main()
-            GoogleApi.getHoursAndWages(sys.argv[1], sys.argv[2])
+            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2:
         if(sys.argv[1]=='-email'):
             drive.main()
             gmail.generateAndSendEmail('0', '0')
         else:
             drive.main()
-            GoogleApi.getHoursAndWages(sys.argv[1], '0')
+            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], '0')
     else:
         drive.main()
-        GoogleApi.getHoursAndWages('0', '0')
+        hoursAndWageCalculator.getHoursAndWages('0', '0')
 
 
 if __name__ == '__main__':
