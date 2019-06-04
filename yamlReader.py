@@ -2,7 +2,6 @@ import yaml
 import yamlordereddictloader
 import start
 
-
 yamlName = start.yamlName()
 
 
@@ -65,63 +64,6 @@ def getHollidays():
     return hollidayList
 
 
-def getEmployees():
-    with open(yamlName, "r") as f:
-        # yaml file opening and loading
-        y = yaml.load(f, Loader=yamlordereddictloader.Loader)
-        for (attribute, value) in y.items():
-            # fetching employees list
-            if (attribute == "employees"):
-                employeesList = []
-                for employee in value:
-                    employeesList.append(employee)
-    return employeesList
-
-
-def getHourlyWage():
-    with open(yamlName, "r") as f:
-        # yaml file opening and loading
-        y = yaml.load(f, Loader=yamlordereddictloader.Loader)
-        for (attribute, value) in y.items():
-            # fetching hourly wage
-            if (attribute == "hourly_wage"):
-                hourlyWage = value
-    return hourlyWage
-
-
-def getHourlyWageAfter5pm():
-    with open(yamlName, "r") as f:
-        # yaml file opening and loading
-        y = yaml.load(f, Loader=yamlordereddictloader.Loader)
-        for (attribute, value) in y.items():
-            # fetching hourly wage
-            if (attribute == "hourly_wage_after_5pm"):
-                hourlyWageAfter5pm = value
-    return hourlyWageAfter5pm
-
-
-def getHourlyWageAfter8pm():
-    with open(yamlName, "r") as f:
-        # yaml file opening and loading
-        y = yaml.load(f, Loader=yamlordereddictloader.Loader)
-        for (attribute, value) in y.items():
-            # fetching hourly wage
-            if (attribute == "hourly_wage_after_8pm"):
-                hourlyWageAfter8pm = value
-    return hourlyWageAfter8pm
-
-
-def getHourlyWageSunday():
-    with open(yamlName, "r") as f:
-        # yaml file opening and loading
-        y = yaml.load(f, Loader=yamlordereddictloader.Loader)
-        for (attribute, value) in y.items():
-            # fetching hourly wage
-            if (attribute == "hourly_wage_sunday"):
-                hourlyWageSunday = value
-    return hourlyWageSunday
-
-
 def getSender():
     with open(yamlName, "r") as f:
         # yaml file opening and loading
@@ -131,17 +73,6 @@ def getSender():
             if (attribute == "email_sender"):
                 emailSender = value
     return emailSender
-
-
-def getPassword():
-    with open(yamlName, "r") as f:
-        # yaml file opening and loading
-        y = yaml.load(f, Loader=yamlordereddictloader.Loader)
-        for (attribute, value) in y.items():
-            # fetching email server password
-            if (attribute == "email_server_password"):
-                emailServerPassword = value
-    return emailServerPassword
 
 
 def getCalendarID():
