@@ -2,23 +2,12 @@ import hoursAndWageCalculator
 import drive
 import sys
 import gmail
-
-
-# ******************************************************
-# *********** PUT CONFIGURATION FILE ID HERE ***********
-# fileID = "18Hzz__cX7K3fv_tpZmJsa620EXYwPj0d"
-fileName = "calculator_data.yml"
-# ******************************************************
-# ******************************************************
-
-
-#def yamlID():
-#    return fileID
+# FILE_NAME must be the same as filename on Google Drive
+FILE_NAME = "calculator_data.yml"
 
 
 def yamlName():
-    return fileName
-
+    return FILE_NAME
 
 
 def start():

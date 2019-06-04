@@ -70,6 +70,11 @@ def generateAndSendEmail(start, end):
         for recipient in recipients:
             finalMessage = create_message(sender, recipient, "Working hours", html)
             service.users().messages().send(userId="me", body=finalMessage).execute()
+            # print('Message Id: %s' % message['id'])
             print("Email sent successfully to: " + recipient)
     except errors.HttpError:
         print("Failed to send email! ")
+
+
+if __name__ == '__main__':
+    generateAndSendEmail('0', '0')

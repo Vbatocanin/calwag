@@ -1,15 +1,10 @@
 from __future__ import print_function
-import pickle
-import os.path
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
 import yamlReader
 import hoursAndWageCalculator
 
 # If modifying these scopes, delete the file calendar.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googleapis.com/auth/drive']
-
 
 
 def main():
