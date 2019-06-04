@@ -1,14 +1,11 @@
 from __future__ import print_function
-from googleapiclient.discovery import build
 import yamlReader
-import hoursAndWageCalculator
-
-# If modifying these scopes, delete the file calendar.pickle.
-SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googleapis.com/auth/drive']
+from googleapiclient.discovery import build
+import getGoogleCredentials
 
 
 def updateConfiguration():
-    creds = hoursAndWageCalculator.getCreds('drive.pickle','drive.json',SCOPES)
+    creds = getGoogleCredentials.getCreds()
 
     service = build('drive', 'v3', credentials=creds)
 
