@@ -5,8 +5,7 @@ calendar_id : vakt@jodiskmuseumoslo.no
 email_sender : mejlzatestiranje69@gmail.com
 
 email_recipients :
-  - xlr8000@gmail.com
-  - vladimir@wings.rs
+  - xlr80000@gmail.com
   - markopetrovic@outlook.com
 
 default_date_day: 10
@@ -18,6 +17,7 @@ bank-hollidays:
   - Dec 24
   - Dec 25
   - Jan 01
+  - May 09 # test
   - Apr 18, 2019
   - Apr 19, 2019
   - May 30, 2019
