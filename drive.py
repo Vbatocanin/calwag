@@ -5,6 +5,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import yamlReader
+import hoursAndWageCalculator
 
 # If modifying these scopes, delete the file calendar.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googleapis.com/auth/drive']
@@ -12,24 +13,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googlea
 
 
 def main():
-    creds = None
-    # The file calendar.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('drive.pickle'):
-        with open('drive.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'drive.json', SCOPES)
-            creds = flow.run_local_server()
-        # Save the credentials for the next run
-        with open('drive.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+    creds = hoursAndWageCalculator.getCreds('drive.pickle','drive.json')
 
     service = build('drive', 'v3', credentials=creds)
 
