@@ -179,14 +179,5 @@ def getDates(start, end):
 
             return [startDate, endDate]
 
-
     except ValueError:
         return
-
-def main():
-    return None
-
-
-
-if __name__ == '__main__':
-   main()

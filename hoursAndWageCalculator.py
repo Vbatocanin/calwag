@@ -46,7 +46,7 @@ def getHoursAndWages(start, end):
 
     # If a date is not inputted, calculate wage from curMonth-2,defaultDay to curMonth-1,defaultDay
     # defaultDay is fetched from shatterhand2.yml as default_date_day
-    if (start == '0'):
+    if (start == None):
         todayDate = datetime.now()
 
         # reads default day and calculates wage from currentMonth-2,defaultDay to currentMonth-1,defaultDay
@@ -76,7 +76,7 @@ def getHoursAndWages(start, end):
         msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
 
     # in case of only d1 inputed, calculates from d1.month,d1.day to d1.month+1,d1.day-1
-    elif (end == '0'):
+    elif (end == None):
         # Fetching initial date values
         inputedDates = dateFunctions.getDates(start, None)
         googleBeginTime = inputedDates[0].isoformat() + 'Z'
@@ -232,7 +232,3 @@ def getHoursAndWages(start, end):
 
     print(msgPrint)
     return msg
-
-
-if __name__ == '__main__':
-    getHoursAndWages('0', '0')

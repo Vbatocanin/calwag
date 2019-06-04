@@ -15,17 +15,6 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googlea
 
 
 def create_message(sender, to, subject, message_text):
-    """Create a message for an email.
-
-    Args:
-      sender: Email address of the sender.
-      to: Email address of the receiver.
-      subject: The subject of the email message.
-      message_text: The text of the email message.
-
-    Returns:
-      An object containing a base64url encoded email object.
-    """
     message = MIMEText(message_text, 'html')
     message['to'] = to
     message['from'] = sender
@@ -63,7 +52,7 @@ def generateAndSendEmail(start, end):
     # Call the Gmail API
     sender = yamlReader.getSender()
     recipients = yamlReader.getEmailRecipients()
-    unformattedMsg = GoogleApi.getHoursAndWages(start, end)
+    unformattedMsg = hoursAndWageCalculator.getHoursAndWages(start, end)
 
     # create and format message
     html = """
@@ -78,13 +67,8 @@ def generateAndSendEmail(start, end):
     """ % unformattedMsg
     try:
         for recipient in recipients:
-            mmmm = create_message(sender, recipient, "Working hours", html)
-            message = (service.users().messages().send(userId="me", body=mmmm).execute())
-            # print('Message Id: %s' % message['id'])
+            finalMessage = create_message(sender, recipient, "Working hours", html)
+            service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
     except errors.HttpError:
         print("Failed to send email! ")
-
-
-if __name__ == '__main__':
-    generateAndSendEmail('0', '0')

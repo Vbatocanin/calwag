@@ -2,22 +2,12 @@ import hoursAndWageCalculator
 import drive
 import sys
 import gmail
-
-# ******************************************************
-# *********** PUT CONFIGURATION FILE ID HERE ***********
-# fileID = "18Hzz__cX7K3fv_tpZmJsa620EXYwPj0d"
-fileName = "calculator_data.yml"
-# ******************************************************
-# ******************************************************
-
-
-#def yamlID():
-#    return fileID
+# this filename must be the same as the one in Google Drive
+FILE_NAME = "calculator_data.yml"
 
 
 def yamlName():
-    return fileName
-
+    return FILE_NAME
 
 
 def start():
@@ -25,30 +15,30 @@ def start():
         print("Wrong number of arguments.\n")
     elif len(sys.argv) == 4:
         if (sys.argv[3] == '-email'):
-            drive.main()
+            drive.updateConfiguration()
             gmail.generateAndSendEmail(sys.argv[1], sys.argv[2])
         else:
             print("Wrong third argument")
-            drive.main()
+            drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     # both dates imputed with no email
     elif len(sys.argv) == 3:
         if (sys.argv[2] == '-email'):
-            drive.main()
-            gmail.generateAndSendEmail(sys.argv[1], '0')
+            drive.updateConfiguration()
+            gmail.generateAndSendEmail(sys.argv[1], None)
         else:
-            drive.main()
+            drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2:
         if(sys.argv[1]=='-email'):
-            drive.main()
-            gmail.generateAndSendEmail('0', '0')
+            drive.updateConfiguration()
+            gmail.generateAndSendEmail(None, None)
         else:
-            drive.main()
-            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], '0')
+            drive.updateConfiguration()
+            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], None)
     else:
-        drive.main()
-        hoursAndWageCalculator.getHoursAndWages('0', '0')
+        drive.updateConfiguration()
+        hoursAndWageCalculator.getHoursAndWages(None, None)
 
 
 if __name__ == '__main__':
