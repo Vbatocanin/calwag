@@ -146,25 +146,7 @@ def closeEnough(startDate, endDate):
 # Uses last month if nothing is inputted
 def getDates(start, end):
     try:
-        if end is not None:
-            startDate = start
-            startDate = startDate.split(".")
-            startDateInts = [int(x) for x in startDate]
-
-            endDate = end
-            endDate = endDate.split(".")
-            endDateInts = [int(x) for x in endDate]
-
-            startDate = datetime(startDateInts[2], startDateInts[1], startDateInts[0])
-            endDate = datetime(endDateInts[2], endDateInts[1], endDateInts[0], 23, 59, 59)
-
-            # if (endDate-startDate>0):
-            #     return startDate, endDate
-            # else:
-            #     raise ValueError
-
-            return [startDate, endDate]
-        else:
+        if end is None:
             startDate = start
             startDate = startDate.split(".")
             startDateInts = [int(x) for x in startDate]
@@ -178,6 +160,25 @@ def getDates(start, end):
             endDate = getLastDayDate(tmpEndDate)
 
             return [startDate, endDate]
+
+        startDate = start
+        startDate = startDate.split(".")
+        startDateInts = [int(x) for x in startDate]
+
+        endDate = end
+        endDate = endDate.split(".")
+        endDateInts = [int(x) for x in endDate]
+
+        startDate = datetime(startDateInts[2], startDateInts[1], startDateInts[0])
+        endDate = datetime(endDateInts[2], endDateInts[1], endDateInts[0], 23, 59, 59)
+
+        # if (endDate-startDate>0):
+        #     return startDate, endDate
+        # else:
+        #     raise ValueError
+
+        return [startDate, endDate]
+
 
 
     except ValueError:
