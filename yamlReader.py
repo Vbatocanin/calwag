@@ -80,7 +80,7 @@ def getCalendarID():
 def getEmailRecipients():
 
     emailRecipientsList=None
-    for (attribute, value) in y.items():
+    for (attribute, value) in yamlData.items():
         # fetching email recipients list
         if (attribute == "email_recipients"):
             emailRecipientsList = []
