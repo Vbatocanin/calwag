@@ -1,0 +1,70 @@
+---  # document start
+
+calendar_id : vakt@jodiskmuseumoslo.no
+
+email_sender : mejlzatestiranje69@gmail.com
+
+email_recipients :
+  - xlr8000@gmail.com
+  - vladimir@wings.rs
+  - markopetrovic@outlook.com
+
+default_date_day: 10
+
+bank-hollidays:
+  - Sun
+  - Sat
+  - May 17
+  - Dec 24
+  - Dec 25
+  - Jan 01
+  - Apr 18, 2019
+  - Apr 19, 2019
+  - May 30, 2019
+  - Apr 09, 2020
+
+wage_rules:
+  - rule:
+     dow: holidays
+     formula: hr + 55
+  - rule:
+     dow: weekdays
+     start: 8
+     end: 17
+     formula: hr
+  - rule:
+     dow: weekdays
+     start: 17
+     end: 20
+     formula: hr + 15
+  - rule:
+     dow: weekdays
+     start: 20
+     end: 8
+     formula: (1 + 45./100.)*hr
+
+employees :
+  - employee:
+      name: Leif
+      hourly_wage: 200
+  - employee:
+      name: Kira
+      hourly_wage: 180
+  - employee:
+      name: Victor
+      hourly_wage: 170
+  - employee:
+      name: Nadine
+      hourly_wage: 170
+  - employee:
+      name: Itamar
+      hourly_wage: 170
+  - employee:
+      name: Lior
+      hourly_wage: 170
+  - employee:
+      name: Simon
+      hourly_wage: 170
+  - employee:
+      name: Jakob
+      hourly_wage: 170
