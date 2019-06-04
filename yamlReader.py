@@ -6,7 +6,7 @@ yamlName = start.yamlName()
 
 
 def getDefault():
-    defaultDay = -1
+    defaultDay = None
     with open(yamlName, "r") as f:
         # yaml file opening and loading
         y = yaml.load(f, Loader=yamlordereddictloader.Loader)

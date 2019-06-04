@@ -8,7 +8,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive.metadata', 'https://www.googlea
 
 
 def updateConfiguration():
-    creds = hoursAndWageCalculator.getCreds('drive.pickle','drive.json')
+    creds = hoursAndWageCalculator.getCreds('drive.pickle','drive.json',SCOPES)
 
     service = build('drive', 'v3', credentials=creds)
 

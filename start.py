@@ -25,20 +25,20 @@ def start():
     elif len(sys.argv) == 3:
         if (sys.argv[2] == '-email'):
             drive.updateConfiguration()
-            gmail.generateAndSendEmail(sys.argv[1], '0')
+            gmail.generateAndSendEmail(sys.argv[1], None)
         else:
             drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2:
         if(sys.argv[1]=='-email'):
             drive.updateConfiguration()
-            gmail.generateAndSendEmail('0', '0')
+            gmail.generateAndSendEmail(None, None)
         else:
             drive.updateConfiguration()
             hoursAndWageCalculator.getHoursAndWages(sys.argv[1], '0')
     else:
         drive.updateConfiguration()
-        hoursAndWageCalculator.getHoursAndWages('0', '0')
+        hoursAndWageCalculator.getHoursAndWages(None, None)
 
 
 if __name__ == '__main__':

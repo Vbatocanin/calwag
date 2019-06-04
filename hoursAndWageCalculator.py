@@ -11,7 +11,7 @@ import yamlReader
 # If modifying these scopes, delete the file calendar.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-def getCreds(picklePath,jsonPath):
+def getCreds(picklePath,jsonPath,scopes):
     creds = None
     # The file calendar.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -26,7 +26,7 @@ def getCreds(picklePath,jsonPath):
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                jsonPath, SCOPES)
+                jsonPath, scopes)
             creds = flow.run_local_server()
         # Save the credentials for the next run
         with open(picklePath, 'wb') as token:
@@ -54,7 +54,7 @@ def formatMsg(beginTime,endTime):
 
 def getHoursAndWages(start, end):
 
-    creds = getCreds('calendar.pickle','calendar.json')
+    creds = getCreds('calendar.pickle','calendar.json',SCOPES)
     service = build('calendar', 'v3', credentials=creds)
 
     # DATE GETTING SECTION
@@ -63,7 +63,7 @@ def getHoursAndWages(start, end):
     beginTime = None
     endTime = None
 
-    if (start == '0'):
+    if (start is None):
         todayDate = datetime.now()
 
         # reads default day and calculates wage from currentMonth-2,defaultDay to currentMonth-1,defaultDay
@@ -81,7 +81,7 @@ def getHoursAndWages(start, end):
     # in case of only d1 inputed, calculates from d1.month,d1.day to d1.month+1,d1.day-1
     # Else, calculates dates accordingly
     else:
-        if end == '0':
+        if end is None:
             end=None
         # Fetching initial date values
         inputedDates = dateFunctions.getDates(start, end)
@@ -203,4 +203,4 @@ def getHoursAndWages(start, end):
 
 
 if __name__ == '__main__':
-    getHoursAndWages('0', '0')
+    getHoursAndWages(None, None)
