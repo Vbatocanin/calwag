@@ -11,14 +11,14 @@ import yamlReader
 # If modifying these scopes, delete the file calendar.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-def getCreds():
+def getCreds(picklePath,jsonPath):
     creds = None
     # The file calendar.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('calendar.pickle'):
+    if os.path.exists(picklePath):
 
-        with open('calendar.pickle', 'rb') as token:
+        with open(picklePath, 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
@@ -26,10 +26,10 @@ def getCreds():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'calendar.json', SCOPES)
+                jsonPath, SCOPES)
             creds = flow.run_local_server()
         # Save the credentials for the next run
-        with open('calendar.pickle', 'wb') as token:
+        with open(picklePath, 'wb') as token:
             pickle.dump(creds, token)
     return creds
 def formatMsg(beginTime,endTime):
@@ -54,7 +54,7 @@ def formatMsg(beginTime,endTime):
 
 def getHoursAndWages(start, end):
 
-    creds = getCreds()
+    creds = getCreds('calendar.pickle','calendar.json')
     service = build('calendar', 'v3', credentials=creds)
 
     # DATE GETTING SECTION
