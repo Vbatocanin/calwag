@@ -7,37 +7,23 @@ yamlData = yaml.safe_load(open(yamlName))
 
 
 def getDefault():
-    defaultDay = None
-
-    for (attribute, value) in yamlData.items():
-        # fetching employees list
-        if (attribute == "default_date_day"):
-                defaultDay = int(value)
-    return defaultDay
+    return int(yamlData.get('default_date_day'))
 
 
 def getEmployeesList():
-    employeesList = []
-    for (attribute, value) in yamlData.items():
-        # fetching employees list
-        if (attribute == "employees"):
-            for employee in value:
-                for (attribute, value) in employee.items():
-                    if (attribute == "employee"):
-                        employeesList.append(value)
-    return employeesList
+    employees = yamlData.get('employees')
+    empList = []
+    for emp in employees:
+        empList.append(emp['employee'])
+
+    return empList
 
 
 def getRulesList():
-    rulesList = []
-
-    for (attribute, value) in yamlData.items():
-        # fetching rules list
-        if (attribute == "wage_rules"):
-            for rule in value:
-                for (attribute, value) in rule.items():
-                    if (attribute == "rule"):
-                            rulesList.append(value)
+    rulesList=[]
+    rules = yamlData.get('wage_rules')
+    for rule in rules:
+        rulesList.append(rule['rule'])
     return rulesList
 
 
@@ -47,42 +33,17 @@ def getYaml():
 
 def getHolidays():
     # getting string representations in string form
-    holidayList = []
-    for (attribute, value) in yamlData.items():
-        if attribute == "bank-holidays":
-            for day in value:
-                holidayList.append(day)
-            break
-    return holidayList
+    return yamlData.get('bank-holidays')
 
 
 def getSender():
-
-    emailSender = None
-    for (attribute, value) in yamlData.items():
-        # fetching email server username
-        if (attribute == "email_sender"):
-                emailSender = value
-    return emailSender
+    return yamlData.get('email-sender')
 
 
 def getCalendarID():
 
-    calendarID = None
-    for (attribute, value) in yamlData.items():
-        # fetching calendar ID
-        if (attribute == "calendar_id"):
-                calendarID = value
-    return calendarID
+    return yamlData.get('calendar_id')
 
 
 def getEmailRecipients():
-
-    emailRecipientsList=None
-    for (attribute, value) in yamlData.items():
-        # fetching email recipients list
-        if (attribute == "email_recipients"):
-            emailRecipientsList = []
-            for recipient in value:
-                    emailRecipientsList.append(recipient)
-    return emailRecipientsList
+    return yamlData.get('email-recipients')
