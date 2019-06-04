@@ -1,5 +1,4 @@
 import yaml
-import yamlordereddictloader
 import start
 
 # yaml file opening and loading
