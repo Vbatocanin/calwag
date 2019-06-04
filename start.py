@@ -1,4 +1,4 @@
-import GoogleApi
+import hoursAndWageCalculator
 import drive
 import sys
 import gmail
@@ -20,36 +20,36 @@ def yamlName():
 
 
 
-def main():
+def start():
     if len(sys.argv) > 5:
         print("Wrong number of arguments.\n")
     elif len(sys.argv) == 4:
         if (sys.argv[3] == '-email'):
             drive.main()
-            gmail.main(sys.argv[1], sys.argv[2])
+            gmail.generateAndSendEmail(sys.argv[1], sys.argv[2])
         else:
             print("Wrong third argument")
             drive.main()
-            GoogleApi.main(sys.argv[1], sys.argv[2])
+            GoogleApi.getHoursAndWages(sys.argv[1], sys.argv[2])
     # both dates imputed with no email
     elif len(sys.argv) == 3:
         if (sys.argv[2] == '-email'):
             drive.main()
-            gmail.main(sys.argv[1], '0')
+            gmail.generateAndSendEmail(sys.argv[1], '0')
         else:
             drive.main()
-            GoogleApi.main(sys.argv[1], sys.argv[2])
+            GoogleApi.getHoursAndWages(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2:
         if(sys.argv[1]=='-email'):
             drive.main()
-            gmail.main('0', '0')
+            gmail.generateAndSendEmail('0', '0')
         else:
             drive.main()
-            GoogleApi.main(sys.argv[1], '0')
+            GoogleApi.getHoursAndWages(sys.argv[1], '0')
     else:
         drive.main()
-        GoogleApi.main('0', '0')
+        GoogleApi.getHoursAndWages('0', '0')
 
 
 if __name__ == '__main__':
-    main()
+    start()

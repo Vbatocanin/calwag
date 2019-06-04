@@ -11,13 +11,13 @@ import yamlReader
 # If modifying these scopes, delete the file calendar.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-
-def main(start, end):
+def getCreds():
     creds = None
     # The file calendar.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
     if os.path.exists('calendar.pickle'):
+
         with open('calendar.pickle', 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
@@ -31,7 +31,11 @@ def main(start, end):
         # Save the credentials for the next run
         with open('calendar.pickle', 'wb') as token:
             pickle.dump(creds, token)
+    return creds
 
+def getHoursAndWages(start, end):
+
+    creds = getCreds()
     service = build('calendar', 'v3', credentials=creds)
     # message to be sent by mail
     msg = ""
@@ -231,4 +235,4 @@ def main(start, end):
 
 
 if __name__ == '__main__':
-    main('0', '0')
+    getHoursAndWages('0', '0')

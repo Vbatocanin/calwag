@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import yamlReader
-import GoogleApi
+import hoursAndWageCalculator
 from base64 import urlsafe_b64encode
 from apiclient import errors
 from email.mime.text import MIMEText
@@ -33,11 +33,7 @@ def create_message(sender, to, subject, message_text):
     encoded_message = urlsafe_b64encode(message.as_bytes())
     return {'raw': encoded_message.decode()}
 
-
-def main(start, end):
-    """Shows basic usage of the Gmail API.
-    Lists the user's Gmail labels.
-    """
+def getCreds():
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -56,13 +52,18 @@ def main(start, end):
         # Save the credentials for the next run
         with open('gmail.pickle', 'wb') as token:
             pickle.dump(creds, token)
+    return creds
 
+
+def generateAndSendEmail(start, end):
+
+    creds = getCreds()
     service = build('gmail', 'v1', credentials=creds)
 
     # Call the Gmail API
     sender = yamlReader.getSender()
     recipients = yamlReader.getEmailRecipients()
-    unformattedMsg = GoogleApi.main(start, end)
+    unformattedMsg = GoogleApi.getHoursAndWages(start, end)
 
     # create and format message
     html = """
@@ -86,4 +87,4 @@ def main(start, end):
 
 
 if __name__ == '__main__':
-    main('0', '0')
+    generateAndSendEmail('0', '0')
