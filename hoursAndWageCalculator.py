@@ -59,7 +59,7 @@ def getHoursAndWages(start, end):
 
     # DATE GETTING SECTION
     # If a date is not inputted, calculate wage from curMonth-2,defaultDay to curMonth-1,defaultDay
-    # defaultDay is fetched from shatterhand2.yml as default_date_day
+    # defaultDay is fetched from configuration file as default_date_day
     beginTime = None
     endTime = None
 
@@ -78,7 +78,7 @@ def getHoursAndWages(start, end):
         beginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay)
         endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay)
 
-    # in case of only d1 inputed, calculates from d1.month,d1.day to d1.month+1,d1.day-1
+    # in case of only d1 inputted, calculates from d1.month,d1.day to d1.month+1,d1.day-1
     # Else, calculates dates accordingly
     else:
         if end is None:
@@ -157,7 +157,7 @@ def getHoursAndWages(start, end):
 
                     if (dateFunctions.closeEnough(tmpDateTime, endDatetime) == True):
                         break
-                    holidayInd = dateFunctions.isHolliday(tmpDateTime)
+                    holidayInd = dateFunctions.isHoliday(tmpDateTime)
                     tmpHour = tmpDateTime.hour
                     if tmpDateTime.minute > 0:
                         tmpHour+=0.5

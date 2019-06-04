@@ -10,7 +10,7 @@ email_recipients :
 
 default_date_day: 10
 
-bank-hollidays:
+bank-holidays:
   - Sun
   - Sat
   - May 17
