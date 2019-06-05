@@ -1,7 +1,9 @@
 import yaml
 import start
+import drive
 
-# yaml file opening and loading
+# yaml file updating and loading
+drive.updateConfiguration()
 yamlName = start.yamlName()
 yamlData = yaml.safe_load(open(yamlName))
 
@@ -37,13 +39,12 @@ def getHolidays():
 
 
 def getSender():
-    return yamlData.get('email-sender')
+    return yamlData.get('email_sender')
 
 
 def getCalendarID():
-
     return yamlData.get('calendar_id')
 
 
 def getEmailRecipients():
-    return yamlData.get('email-recipients')
+    return yamlData.get('email_recipients')

@@ -54,7 +54,7 @@ def getHoursAndWages(start, end):
 
     # in case of only d1 inputted, calculates from d1.month,d1.day to d1.month+1,d1.day-1
     # Else, calculates dates accordingly
-    elif end is None:
+    else:
         # Fetching initial date values
         inputedDates = dateFunctions.getDates(start, end)
         beginTime = inputedDates[0]

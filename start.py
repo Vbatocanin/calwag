@@ -1,5 +1,4 @@
 import hoursAndWageCalculator
-import drive
 import gmail
 import argparse
 # FILE_NAME must be the same as filename on Google Drive
@@ -20,10 +19,8 @@ def start():
     if args.start is not None and args.end is not None and args.start > args.end:
         print("Start date must be before end date")
     elif args.e:
-        drive.updateConfiguration()
         gmail.generateAndSendEmail(args.start, args.end)
     else:
-        drive.updateConfiguration()
         hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
 
 

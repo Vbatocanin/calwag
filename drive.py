@@ -1,5 +1,5 @@
 from __future__ import print_function
-import yamlReader
+import start
 from googleapiclient.discovery import build
 import getGoogleCredentials
 
@@ -14,7 +14,7 @@ def updateConfiguration():
         results = service.files().list(
             pageSize=10, fields="nextPageToken, files(id, name)").execute()
         items = results.get('files', [])
-        yaml = yamlReader.getYaml()
+        yaml = start.yamlName()
         if not items:
             print('No files found.')
         else:

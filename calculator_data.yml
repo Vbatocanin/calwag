@@ -17,7 +17,7 @@ bank-holidays:
   - Dec 24
   - Dec 25
   - Jan 01
-  - May 09 # test 123
+  - Apr 25 # test
   - Apr 18, 2019
   - Apr 19, 2019
   - May 30, 2019
@@ -51,7 +51,7 @@ employees :
       name: Kira
       hourly_wage: 180
   - employee:
-      name: Victor
+      name: Viktor
       hourly_wage: 170
   - employee:
       name: Nadine
