@@ -16,9 +16,7 @@ def start():
     parser.add_argument("-e", "-email", help="Option to send email", action='store_true')
     args = parser.parse_args()
 
-    if args.start is not None and args.end is not None and args.start > args.end:
-        print("Start date must be before end date")
-    elif args.e:
+    if args.e:
         gmail.generateAndSendEmail(args.start, args.end)
     else:
         hoursAndWageCalculator.getHoursAndWages(args.start, args.end)

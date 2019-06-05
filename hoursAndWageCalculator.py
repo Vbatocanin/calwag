@@ -88,7 +88,7 @@ def getHoursAndWages(start, end):
     grandTotal = 0
     if not events:
         msgPrint = msgPrint + ("No registered work time.\n")
-        msg = msg + "<br> No registered work time."
+        msg = msg + "<td colspan=" + str(6) + "> <b>No registered work time.</b></td>"
     for employee in employees:
         empWage = 0
         name = employee['name']
