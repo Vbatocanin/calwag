@@ -11,8 +11,8 @@ def getDefault():
 
 
 def getEmployeesList():
-    employees = yamlData.get('employees')
     empList = []
+    employees = yamlData.get('employees')
     for emp in employees:
         empList.append(emp['employee'])
 
