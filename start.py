@@ -1,7 +1,7 @@
 import hoursAndWageCalculator
 import drive
-import sys
 import gmail
+import argparse
 # FILE_NAME must be the same as filename on Google Drive
 FILE_NAME = "calculator_data.yml"
 
@@ -11,34 +11,20 @@ def yamlName():
 
 
 def start():
-    if len(sys.argv) > 5:
-        print("Wrong number of arguments.\n")
-    elif len(sys.argv) == 4:
-        if (sys.argv[3] == '-email'):
-            drive.updateConfiguration()
-            gmail.generateAndSendEmail(sys.argv[1], sys.argv[2])
-        else:
-            print("Wrong third argument")
-            drive.updateConfiguration()
-            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
-    # both dates imputed with no email
-    elif len(sys.argv) == 3:
-        if (sys.argv[2] == '-email'):
-            drive.updateConfiguration()
-            gmail.generateAndSendEmail(sys.argv[1], None)
-        else:
-            drive.updateConfiguration()
-            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], sys.argv[2])
-    elif len(sys.argv) == 2:
-        if(sys.argv[1]=='-email'):
-            drive.updateConfiguration()
-            gmail.generateAndSendEmail(None, None)
-        else:
-            drive.updateConfiguration()
-            hoursAndWageCalculator.getHoursAndWages(sys.argv[1], '0')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("start", help="Start date as dd.mm.yyyy", nargs='?', default=None)
+    parser.add_argument("end", help="End date as dd.mm.yyyy", nargs='?', default=None)
+    parser.add_argument("-e", "-email", help="Option to send email", action='store_true')
+    args = parser.parse_args()
+
+    if args.start is not None and args.end is not None and args.start > args.end:
+        print("Start date must be before end date")
+    elif args.e:
+        drive.updateConfiguration()
+        gmail.generateAndSendEmail(args.start, args.end)
     else:
         drive.updateConfiguration()
-        hoursAndWageCalculator.getHoursAndWages(None, None)
+        hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
 
 
 if __name__ == '__main__':
