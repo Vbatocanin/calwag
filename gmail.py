@@ -23,7 +23,7 @@ def generateAndSendEmail(start, end):
     service = build('gmail', 'v1', credentials=creds)
 
     # Call the Gmail API
-    sender = yamlReader.getSender()
+    sender = "me"
     recipients = yamlReader.getEmailRecipients()
     unformattedMsg = hoursAndWageCalculator.getHoursAndWages(start, end)
 

@@ -38,8 +38,8 @@ def getHolidays():
     return yamlData.get('bank-holidays')
 
 
-def getSender():
-    return yamlData.get('email_sender')
+#def getSender():
+#    return yamlData.get('email_sender')
 
 
 def getCalendarID():
