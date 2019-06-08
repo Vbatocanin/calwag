@@ -13,7 +13,7 @@ def create_message(sender, to, subject, message_text):
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
-    encoded_message = urlsafe_b64encode(message.as_string())
+    encoded_message = urlsafe_b64encode(message.as_string())  # .as_bytes() for python 3.7
     return {'raw': encoded_message.decode()}
 
 
