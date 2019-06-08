@@ -74,6 +74,7 @@ def getHoursAndWages(start, end):
                                           timeMin=googleBeginTime,
                                           timeMax=googleEndTime,
                                           singleEvents=True,
+                                          maxResults=2500,
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
 

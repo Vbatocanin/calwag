@@ -151,13 +151,25 @@ def getDates(start, end):
             startDate = startDate.split(".")
             startDateInts = [int(x) for x in startDate]
             startDate = datetime(startDateInts[2], startDateInts[1], startDateInts[0])
+            #print(startDate)
 
             # calculates date of last month
-            [endDatemonth, endDateYear] = dateNextMonth(startDateInts[1], startDateInts[2])
-            tmpEndDate = datetime(endDateYear, endDatemonth, startDateInts[0])
+            #[endDatemonth, endDateYear] = dateNextMonth(startDateInts[1], startDateInts[2])
+            #tmpEndDate = datetime(endDateYear, endDatemonth, startDateInts[0])
+            #print(tmpEndDate)
+            #endDate3 = startDate
+            endDate3 = getNextDayDate(startDate)
+            while endDate3.day != startDate.day and endDate3.month != startDate.month+2:
+                endDate2 = getNextDayDate(endDate3)
+                endDate3 = endDate2
+            #print(endDate3)
 
-            # subtracts 1 day
-            endDate = getLastDayDate(tmpEndDate)
+
+            # subtracts 1 day if we have moved 2 months in the future
+            if startDate.month+2 == endDate3.month:
+                endDate = getLastDayDate(endDate3)
+            else:
+                endDate=endDate3
 
             return [startDate, endDate]
 
