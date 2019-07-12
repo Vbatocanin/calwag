@@ -2,7 +2,7 @@ import hoursAndWageCalculator
 import gmail
 import argparse
 # FILE_NAME must be the same as filename on Google Drive
-FILE_NAME = "calculator_data.yml"
+FILE_NAME = "test_data.yml"
 
 
 def yamlName():
