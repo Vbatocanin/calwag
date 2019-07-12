@@ -111,7 +111,7 @@ def getHoursAndWages(start, end):
         # counter is for determining if at least one event exists for a given worker
         counter = 0
         for tmpEvent in events:
-            if (-1 != tmpEvent['summary'].find(name) and -1 == tmpEvent['summary'].find(name + "s")):
+            if (-1 != tmpEvent['summary'].find(name) and -1 == tmpEvent['summary'].find(name + "s") and -1 == tmpEvent['summary'].find(name + " er borte")):
                 if counter == 0:
                     counter = 1
                 # only the first 19 chars are used because of timezone formatting
