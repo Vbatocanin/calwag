@@ -171,8 +171,7 @@ def getHoursAndWages(start, end):
     msg = msg + "<tr><td></td><td></td><td></td><td></td><td><b>Total:</b></td><td><b>{:8.2f}</b></td></tr>".format(
         grandTotal)
 
-    print(msgPrint)
-    return msg
+    return msg, msgPrint
 
 
 if __name__ == '__main__':

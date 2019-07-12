@@ -1,7 +1,6 @@
 from __future__ import print_function
 from googleapiclient.discovery import build
 import yamlReader
-import hoursAndWageCalculator
 from base64 import urlsafe_b64encode
 from apiclient import errors
 from email.mime.text import MIMEText
@@ -17,7 +16,7 @@ def create_message(sender, to, subject, message_text):
     return {'raw': encoded_message.decode()}
 
 
-def generateAndSendEmail(start, end):
+def generateAndSendEmail(unformattedMsg):
 
     creds = getGoogleCredentials.getCreds()
     service = build('gmail', 'v1', credentials=creds)
@@ -25,7 +24,6 @@ def generateAndSendEmail(start, end):
     # Call the Gmail API
     sender = "me"
     recipients = yamlReader.getEmailRecipients()
-    unformattedMsg = hoursAndWageCalculator.getHoursAndWages(start, end)
 
     # create and format message
     html = """
@@ -48,4 +46,4 @@ def generateAndSendEmail(start, end):
 
 
 if __name__ == '__main__':
-    generateAndSendEmail(None, None)
+    generateAndSendEmail(None)

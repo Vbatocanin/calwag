@@ -16,10 +16,12 @@ def start():
     parser.add_argument("-e", "-email", help="Option to send email", action='store_true')
     args = parser.parse_args()
 
+    msgEmail, msgPrint = hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
+
+    print(msgPrint)
+
     if args.e:
-        gmail.generateAndSendEmail(args.start, args.end)
-    else:
-        hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
+        gmail.generateAndSendEmail(msgEmail)
 
 
 if __name__ == '__main__':
