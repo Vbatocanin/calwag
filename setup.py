@@ -1,14 +1,16 @@
 import os
-import webbrowser
 
-myCmd1 = 'sudo easy_install pip'
-myCmd2 = 'sudo pip install --upgrade pip'
-myCmd3 = 'sudo pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib yamlreader'
+# enable safari automatization
+cmd0 = 'sudo safaridriver --enable'
+# install pip and the needed libraries
+cmd1 = 'sudo easy_install pip'
+cmd2 = 'sudo pip install --upgrade pip'
+cmd3 = 'sudo pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib yamlreader selenium'
+# run autocred.py to get credentials
+cmd4 = 'python autocred.py'
 
-os.system(myCmd1)
-os.system(myCmd2)
-os.system(myCmd3)
-
-webbrowser.open_new("https://developers.google.com/calendar/quickstart/python?authuser=1")
-webbrowser.open_new_tab("https://developers.google.com/drive/api/v3/quickstart/python")
-webbrowser.open_new_tab("https://developers.google.com/gmail/api/quickstart/python")
+os.system(cmd0)
+os.system(cmd1)
+os.system(cmd2)
+os.system(cmd3)
+os.system(cmd4)
