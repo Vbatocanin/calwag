@@ -134,8 +134,9 @@ def GetMessage(service, user_id, msg_id):
             <p>4. To edit the calculator data click here: <a href="https://drive.google.com/file/d/1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq/view?usp=sharing">calculator data.</a>&nbsp;And choose Anyfile Notepad to open the file.</p>
             """ % msgEmail
 
+        finalSubject = "CalWag - "+start+" "+end
         for recipient in recipients:
-            finalMessage = create_message("me", recipient, "CalWag", html)
+            finalMessage = create_message("me", recipient, finalSubject, html)
             service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
     service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
