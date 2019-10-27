@@ -138,14 +138,25 @@ def closeEnough(startDate, endDate):
             if startDate.day == endDate.day:
                 if startDate.hour == endDate.hour:
                     #if startDate.minute == endDate.minute:
-                        return True
+                    return True
     return False
 
+def reformat(date):
+    if (date is not None):
+        if (date[-1] == '.'):
+            date = date[:-1]
+        if (date[0] == '.'):
+            date = date[1:]
+    return date
 
 # Function that takes inputted date strings and converts them to dates
 # Uses last month if nothing is inputted
 def getDates(start, end):
     try:
+        start = reformat(start)
+        end = reformat(end)
+
+
         if end is None:
             startDate = start
             startDate = startDate.split(".")
