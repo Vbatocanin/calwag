@@ -8,8 +8,8 @@ import json
 
 
 def autocred():
-    google_username = raw_input("Enter Google account username: ")  # raw_input() for python 2, use input() for python 3
-    google_password = raw_input("Enter Google account password: ")
+    google_username = input("Enter Google account username: ")  # raw_input() for python 2, use input() for python 3
+    google_password = input("Enter Google account password: ")
 
     chrome_options = Options()
     chrome_options.add_argument('start-maximized')

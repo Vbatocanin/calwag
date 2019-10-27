@@ -79,6 +79,7 @@ def GetMessage(service, user_id, msg_id):
     can be used to indicate the authenticated user.
     msg_id: The ID of the Message required.
 
+
   Returns:
     A Message.
   """
@@ -95,6 +96,7 @@ def GetMessage(service, user_id, msg_id):
             temp_dict['Sender'] = msg_from
         else:
             pass
+
     for two in headers:
         if two['name'] == 'Date':
             msg_date = two['value']
