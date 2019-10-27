@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 import getGoogleCredentials
 import hoursAndWageCalculator
 import yamlReader
+import dateutil.parser as parser
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
 
 def CheckDate(date):
     numbers = date.split(".")
-    if 0 < int(numbers[0]) < 32 and 0 < int(numbers[1]) < 12 and 2000 < int(numbers[2]) < 2100:
+    if 0 < int(numbers[0]) < 32 and 0 < int(numbers[1]) < 13 and 2000 < int(numbers[2]) < 2100:
         return True
     else:
         return False
@@ -94,6 +95,15 @@ def GetMessage(service, user_id, msg_id):
             temp_dict['Sender'] = msg_from
         else:
             pass
+    for two in headers:
+        if two['name'] == 'Date':
+            msg_date = two['value']
+            date_parse = (parser.parse(msg_date))
+            m_date = (date_parse.date())
+            temp_dict['Date'] = str(m_date)
+        else:
+            pass
+    print(temp_dict['Date'])
 
     temp_dict['Snippet'] = message['snippet']
 
@@ -146,9 +156,9 @@ def GetMessage(service, user_id, msg_id):
 
         for recipient in recipients:
             finalMessage = create_message("me", recipient, "CalWag", html)
-            service.users().messages().send(userId="me", body=finalMessage).execute()
+            #service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
-    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+    #service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
   except:
     pass
 
