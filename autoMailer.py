@@ -2,6 +2,8 @@ from __future__ import print_function
 from googleapiclient.discovery import build
 from base64 import urlsafe_b64encode
 from email.mime.text import MIMEText
+
+import dateFunctions
 import getGoogleCredentials
 import hoursAndWageCalculator
 
@@ -134,7 +136,10 @@ def GetMessage(service, user_id, msg_id):
             <p>4. To edit the calculator data click here: <a href="https://drive.google.com/file/d/1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq/view?usp=sharing">calculator data.</a>&nbsp;And choose Anyfile Notepad to open the file.</p>
             """ % msgEmail
 
-        finalSubject = "CalWag - "+start+" "+end
+        [_,displayEnd] = dateFunctions.getDates(start,end)
+        displayEnd= dateFunctions.getPreviousDayDate(displayEnd)
+        displayEnd = dateFunctions.convertDateToString(displayEnd)
+        finalSubject = "CalWag - "+start+" "+displayEnd
         for recipient in recipients:
             finalMessage = create_message("me", recipient, finalSubject, html)
             service.users().messages().send(userId="me", body=finalMessage).execute()

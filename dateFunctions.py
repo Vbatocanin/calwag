@@ -25,6 +25,16 @@ def getNextDayDate(date):
 
     return newDate
 
+def getPreviousDayDate(date):
+    tmpDate = date + timedelta(days=-1)
+    newDate = datetime(tmpDate.year, tmpDate.month, tmpDate.day, 0, 0)
+
+    return newDate
+
+def convertDateToString(date):
+    return date.year + "."+date.month +"."+date.day
+
+
 
 def getLastDayDate(date):
     tmpDate = date - timedelta(days=1)
