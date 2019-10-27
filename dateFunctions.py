@@ -32,7 +32,8 @@ def getPreviousDayDate(date):
     return newDate
 
 def convertDateToString(date):
-    return date.year + "."+date.month +"."+date.day
+    retStr = str(date.year) + "."+str(date.month) +"."+str(date.day)
+    return retStr
 
 
 
