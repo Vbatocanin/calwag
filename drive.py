@@ -1,5 +1,4 @@
 from __future__ import print_function
-import start
 from googleapiclient.discovery import build
 import getGoogleCredentials
 
@@ -14,7 +13,8 @@ def updateConfiguration():
         results = service.files().list(
             pageSize=10, fields="nextPageToken, files(id, name)").execute()
         items = results.get('files', [])
-        yaml = start.yamlName()
+        # yamlName must be the same as filename on Google Drive
+        yaml = "calculator_data.yml"
         if not items:
             print('No files found.')
         else:
