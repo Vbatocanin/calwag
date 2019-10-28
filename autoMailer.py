@@ -115,7 +115,7 @@ def GetMessage(service, user_id, msg_id):
         sender = temp_dict['Sender'][temp_dict['Sender'].find("<")+1:temp_dict['Sender'].find(">")]
         recipients.append(sender)
         recipients = list(dict.fromkeys(recipients))
-        msgEmail, msgPrint = hoursAndWageCalculator.getHoursAndWages(start, end)
+        msgEmail, msgPrint, beginTime, endTime = hoursAndWageCalculator.getHoursAndWages(start, end)
 
         html = """
             <html>
@@ -129,24 +129,24 @@ def GetMessage(service, user_id, msg_id):
             <h2>CalWag instructions:</h2>
             <p>1. Your email must have the subject "<strong>Calwag</strong>" to get a response.</p>
             <p>2. Write dates in this format: <strong>dd.mm.yyyy</strong></p>
-            <p>3. You can choose to send <strong>a blank email</strong>, <strong>1</strong>, or <strong>2</strong> dates:</p>
-            <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the day that is stored in the calculator_data file from two months ago until the same day the following month. (example: the current date is 27.10.2019 and the day in the calculator_data file is <strong>10</strong>. Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>10.9.2019</strong>)</p>
-            <p>&nbsp; &nbsp; <strong>1:</strong> will return wages from that date until the same day the following month.</p>
+            <p>3. You can choose to send <strong>a blank email</strong> or <strong>2</strong> dates:</p>
+            <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the day that is stored in the calculator_data file from two months ago until the same day the following month. (example: the day in the calculator_data file is <strong>10</strong>. Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>9.9.2019</strong>)</p>
             <p>&nbsp; &nbsp; <strong>2:</strong> will return the wages between those 2 dates (the dates must be&nbsp;separated by a space, example: <strong>21.3.2019 31.3.2019</strong>)</p>
             <p>4. To edit the calculator data click here: <a href="https://drive.google.com/file/d/1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq/view?usp=sharing">calculator data.</a>&nbsp;And choose Anyfile Notepad to open the file.</p>
             """ % msgEmail
 
-        [_,displayEnd] = dateFunctions.getDates(start,end)
-        displayEnd= dateFunctions.getPreviousDayDate(displayEnd)
-        displayEnd = dateFunctions.convertDateToString(displayEnd)
-        finalSubject = "CalWag - "+start+" "+displayEnd
+        displayStart = dateFunctions.convertDateToString(beginTime)
+        #print(displayStart)
+        displayEnd = dateFunctions.convertDateToString(endTime)
+        #print(displayEnd)
         for recipient in recipients:
-            finalMessage = create_message("me", recipient, finalSubject, html)
+            finalMessage = create_message("me", recipient, "CalWag: "+ displayStart + " - " + displayEnd, html)
             service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
     service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
   except:
     print('error')
+    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
 
 
 if __name__ == '__main__':

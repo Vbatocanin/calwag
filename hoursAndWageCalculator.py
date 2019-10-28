@@ -1,5 +1,6 @@
 from __future__ import print_function
 from datetime import datetime
+from datetime import timedelta
 from googleapiclient.discovery import build
 import dateFunctions
 import yamlReader
@@ -50,7 +51,8 @@ def getHoursAndWages(start, end):
         # googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
 
         beginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay)
-        endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay)
+        endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay) - timedelta(seconds=1)
+
 
     # in case of only d1 inputted, calculates from d1.month,d1.day to d1.month+1,d1.day-1
     # Else, calculates dates accordingly
@@ -171,7 +173,7 @@ def getHoursAndWages(start, end):
     msg = msg + "<tr><td></td><td></td><td></td><td></td><td><b>Total:</b></td><td><b>{:8.2f}</b></td></tr>".format(
         grandTotal)
 
-    return msg, msgPrint
+    return msg, msgPrint, beginTime, endTime
 
 
 if __name__ == '__main__':

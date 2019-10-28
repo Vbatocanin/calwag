@@ -148,8 +148,8 @@ def closeEnough(startDate, endDate):
         if startDate.month == endDate.month:
             if startDate.day == endDate.day:
                 if startDate.hour == endDate.hour:
-                    #if startDate.minute == endDate.minute:
-                    return True
+                    if startDate.minute >= endDate.minute:
+                        return True
     return False
 
 def reformat(date):
