@@ -1,5 +1,8 @@
 from __future__ import print_function
 from datetime import datetime
+
+from datetime import timedelta
+
 from googleapiclient.discovery import build
 import dateFunctions
 import yamlReader
@@ -13,18 +16,18 @@ def formatMsg(beginTime,endTime):
     msgPrint = ""
 
     msgPrint = msgPrint + "\n"
-    msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.year, beginTime.month,
-                                                                      beginTime.day, endTime.year, endTime.month,
-                                                                      endTime.day, ))
+
+    msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.day, beginTime.month, beginTime.year,
+                                                                      endTime.day, endTime.month, endTime.year))
     msg = msg + "<tr><td colspan=" + str(6) + \
-          ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.year, beginTime.month,
-                                                                         beginTime.day, endTime.year,
-                                                                         endTime.month, endTime.day, )
-    msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th><th>" \
+          ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.day, beginTime.month, beginTime.year,
+                                                                         endTime.day, endTime.month, endTime.year)
+    msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday / Bank holiday</th><th>" \
                 "Total for employee:</th></tr>"
     msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
 
-    return [msg,msgPrint]
+    return [msg, msgPrint]
+
 
 def getHoursAndWages(start, end):
 
@@ -50,7 +53,10 @@ def getHoursAndWages(start, end):
         # googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
 
         beginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay)
-        endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay)
+
+        endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay) - timedelta(seconds=1)
+
+
 
     # in case of only d1 inputted, calculates from d1.month,d1.day to d1.month+1,d1.day-1
     # Else, calculates dates accordingly
@@ -133,18 +139,20 @@ def getHoursAndWages(start, end):
                     holidayInd = dateFunctions.isHoliday(tmpDateTime)
                     tmpHour = tmpDateTime.hour
                     if tmpDateTime.minute > 0:
-                        tmpHour+=0.5
+
+                        tmpHour+=0.25
                     if holidayInd is True:
-                        tmpSundayNum += 0.5
+                        tmpSundayNum += 0.25
                     elif tmpHour < 8:
-                        tmpLateLateNum += 0.5
+                        tmpLateLateNum += 0.25
                     elif (tmpHour >= 8 and tmpHour < 17):
-                        tmpNormalNum += 0.5
+                        tmpNormalNum += 0.25
                     elif (tmpHour >= 17 and tmpHour < 20):
-                        tmpLateNum += 0.5
+                        tmpLateNum += 0.25
                     elif (tmpHour >= 20):
-                        tmpLateLateNum += 0.5
-                    tmpDateTime = dateFunctions.getNextHalfHourDate(tmpDateTime)
+                        tmpLateLateNum += 0.25
+                    tmpDateTime = dateFunctions.getNextQuarterHourDate(tmpDateTime)
+
 
                 # WAGE CALCULATOR SUBSECTION
                 wage = normalCoef * tmpNormalNum + lateCoef * tmpLateNum + lateLateCoef * tmpLateLateNum + sundayCoef * tmpSundayNum
@@ -171,7 +179,8 @@ def getHoursAndWages(start, end):
     msg = msg + "<tr><td></td><td></td><td></td><td></td><td><b>Total:</b></td><td><b>{:8.2f}</b></td></tr>".format(
         grandTotal)
 
-    return msg, msgPrint
+    return msg, msgPrint, beginTime, endTime
+
 
 
 if __name__ == '__main__':

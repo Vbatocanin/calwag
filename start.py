@@ -1,8 +1,9 @@
 import hoursAndWageCalculator
-import gmail
+
 import argparse
 # FILE_NAME must be the same as filename on Google Drive
-FILE_NAME = "test_data.yml"
+FILE_NAME = "calculator_data.yml"
+
 
 
 def yamlName():
@@ -16,13 +17,9 @@ def start():
     parser.add_argument("-e", "-email", help="Option to send email", action='store_true')
     args = parser.parse_args()
 
-    msgEmail, msgPrint = hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
+    msgEmail, msgPrint, startTime, endTime = hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
 
     print(msgPrint)
-
-    if args.e:
-        gmail.generateAndSendEmail(msgEmail)
-
 
 
 if __name__ == '__main__':

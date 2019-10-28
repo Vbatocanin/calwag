@@ -18,12 +18,28 @@ def getNextHalfHourDate(date):
     return newDate
 
 
+def getNextQuarterHourDate(date):
+    newDate = date + timedelta(seconds=900)
+    return newDate
+
+
 # returns next day at midnight
 def getNextDayDate(date):
     tmpDate = date + timedelta(days=1)
     newDate = datetime(tmpDate.year, tmpDate.month, tmpDate.day, 0, 0)
 
     return newDate
+
+def getPreviousDayDate(date):
+    tmpDate = date + timedelta(days=-1)
+    newDate = datetime(tmpDate.year, tmpDate.month, tmpDate.day, 0, 0)
+
+    return newDate
+
+def convertDateToString(date):
+    retStr = str(date.year) + "."+str(date.month) +"."+str(date.day)
+    return retStr
+
 
 
 def getLastDayDate(date):
@@ -137,15 +153,28 @@ def closeEnough(startDate, endDate):
         if startDate.month == endDate.month:
             if startDate.day == endDate.day:
                 if startDate.hour == endDate.hour:
-                    if startDate.minute == endDate.minute:
+
+                    if startDate.minute >= endDate.minute:
                         return True
     return False
+
+def reformat(date):
+    if (date is not None):
+        if (date[-1] == '.'):
+            date = date[:-1]
+        if (date[0] == '.'):
+            date = date[1:]
+    return date
 
 
 # Function that takes inputted date strings and converts them to dates
 # Uses last month if nothing is inputted
 def getDates(start, end):
     try:
+
+        start = reformat(start)
+        end = reformat(end)
+
         if end is None:
             startDate = start
             startDate = startDate.split(".")
@@ -184,9 +213,10 @@ def getDates(start, end):
         return [startDate, endDate]
 
 
-
     except ValueError:
         return
+
+
 
 def main():
     return None
@@ -194,4 +224,5 @@ def main():
 
 
 if __name__ == '__main__':
-   main()
+    main()
+
