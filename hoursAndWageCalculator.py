@@ -19,7 +19,7 @@ def formatMsg(beginTime,endTime):
     msg = msg + "<tr><td colspan=" + str(6) + \
           ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.day, beginTime.month, beginTime.year,
                                                                          endTime.day, endTime.month, endTime.year)
-    msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th><th>" \
+    msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday / Bank holiday</th><th>" \
                 "Total for employee:</th></tr>"
     msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
 
@@ -133,18 +133,18 @@ def getHoursAndWages(start, end):
                     holidayInd = dateFunctions.isHoliday(tmpDateTime)
                     tmpHour = tmpDateTime.hour
                     if tmpDateTime.minute > 0:
-                        tmpHour+=0.5
+                        tmpHour+=0.25
                     if holidayInd is True:
-                        tmpSundayNum += 0.5
+                        tmpSundayNum += 0.25
                     elif tmpHour < 8:
-                        tmpLateLateNum += 0.5
+                        tmpLateLateNum += 0.25
                     elif (tmpHour >= 8 and tmpHour < 17):
-                        tmpNormalNum += 0.5
+                        tmpNormalNum += 0.25
                     elif (tmpHour >= 17 and tmpHour < 20):
-                        tmpLateNum += 0.5
+                        tmpLateNum += 0.25
                     elif (tmpHour >= 20):
-                        tmpLateLateNum += 0.5
-                    tmpDateTime = dateFunctions.getNextHalfHourDate(tmpDateTime)
+                        tmpLateLateNum += 0.25
+                    tmpDateTime = dateFunctions.getNextQuarterHourDate(tmpDateTime)
 
                 # WAGE CALCULATOR SUBSECTION
                 wage = normalCoef * tmpNormalNum + lateCoef * tmpLateNum + lateLateCoef * tmpLateLateNum + sundayCoef * tmpSundayNum

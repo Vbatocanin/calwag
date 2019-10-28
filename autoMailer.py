@@ -143,10 +143,10 @@ def GetMessage(service, user_id, msg_id):
             finalMessage = create_message("me", recipient, "CalWag: " + str(tempStartDay) + "." + str(tempStartMonth) + "." + str(tempStartYear) + " - " + str(tempEndDay) + "." + str(tempEndMonth) + "." + str(tempEndYear), html)
             service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
-    #service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
   except:
     print('error')
-    #service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
 
 
 if __name__ == '__main__':

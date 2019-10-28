@@ -18,6 +18,11 @@ def getNextHalfHourDate(date):
     return newDate
 
 
+def getNextQuarterHourDate(date):
+    newDate = date + timedelta(seconds=900)
+    return newDate
+
+
 # returns next day at midnight
 def getNextDayDate(date):
     tmpDate = date + timedelta(days=1)
