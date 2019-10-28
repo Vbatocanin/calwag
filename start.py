@@ -1,5 +1,4 @@
 import hoursAndWageCalculator
-import gmail
 import argparse
 # FILE_NAME must be the same as filename on Google Drive
 FILE_NAME = "calculator_data.yml"
@@ -19,9 +18,6 @@ def start():
     msgEmail, msgPrint, startTime, endTime = hoursAndWageCalculator.getHoursAndWages(args.start, args.end)
 
     print(msgPrint)
-
-    if args.e:
-        gmail.generateAndSendEmail(msgEmail)
 
 
 if __name__ == '__main__':
