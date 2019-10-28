@@ -4,7 +4,7 @@ import autoMailer
 
 def main():
     while 1:
-        time.sleep(300)
+        time.sleep(15)
         autoMailer.main()
 
 
