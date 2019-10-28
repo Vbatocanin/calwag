@@ -2,8 +2,6 @@ from __future__ import print_function
 from googleapiclient.discovery import build
 from base64 import urlsafe_b64encode
 from email.mime.text import MIMEText
-
-import dateFunctions
 import getGoogleCredentials
 import hoursAndWageCalculator
 
@@ -131,22 +129,24 @@ def GetMessage(service, user_id, msg_id):
             <p>2. Write dates in this format: <strong>dd.mm.yyyy</strong></p>
             <p>3. You can choose to send <strong>a blank email</strong> or <strong>2</strong> dates:</p>
             <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the day that is stored in the calculator_data file from two months ago until the same day the following month. (example: the day in the calculator_data file is <strong>10</strong>. Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>9.9.2019</strong>)</p>
-            <p>&nbsp; &nbsp; <strong>2:</strong> will return the wages between those 2 dates (the dates must be&nbsp;separated by a space, example: <strong>21.3.2019 31.3.2019</strong>)</p>
+            <p>&nbsp; &nbsp; <strong>2 dates:</strong> will return the wages between those 2 dates (the dates must be&nbsp;separated by a space, example: <strong>21.3.2019 31.3.2019</strong>)</p>
             <p>4. To edit the calculator data click here: <a href="https://drive.google.com/file/d/1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq/view?usp=sharing">calculator data.</a>&nbsp;And choose Anyfile Notepad to open the file.</p>
             """ % msgEmail
 
-        displayStart = dateFunctions.convertDateToString(beginTime)
-        #print(displayStart)
-        displayEnd = dateFunctions.convertDateToString(endTime)
-        #print(displayEnd)
+        tempStartDay = beginTime.day
+        tempStartMonth = beginTime.month
+        tempStartYear = beginTime.year
+        tempEndDay = endTime.day
+        tempEndMonth = endTime.month
+        tempEndYear = endTime.year
         for recipient in recipients:
-            finalMessage = create_message("me", recipient, "CalWag: "+ displayStart + " - " + displayEnd, html)
+            finalMessage = create_message("me", recipient, "CalWag: " + str(tempStartDay) + "." + str(tempStartMonth) + "." + str(tempStartYear) + " - " + str(tempEndDay) + "." + str(tempEndMonth) + "." + str(tempEndYear), html)
             service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
-    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+    #service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
   except:
     print('error')
-    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+    #service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
 
 
 if __name__ == '__main__':

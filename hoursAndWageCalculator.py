@@ -14,18 +14,16 @@ def formatMsg(beginTime,endTime):
     msgPrint = ""
 
     msgPrint = msgPrint + "\n"
-    msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.year, beginTime.month,
-                                                                      beginTime.day, endTime.year, endTime.month,
-                                                                      endTime.day, ))
+    msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.day, beginTime.month, beginTime.year,
+                                                                      endTime.day, endTime.month, endTime.year))
     msg = msg + "<tr><td colspan=" + str(6) + \
-          ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.year, beginTime.month,
-                                                                         beginTime.day, endTime.year,
-                                                                         endTime.month, endTime.day, )
+          ">Wages from: <b>{}.{}.{}</b> to: <b>{}.{}.{}</b></td>".format(beginTime.day, beginTime.month, beginTime.year,
+                                                                         endTime.day, endTime.month, endTime.year)
     msg = msg + "<tr><th>Name</th><th>Regular hours</th><th>After 5pm</th><th>After 8pm</th><th>Sunday</th><th>" \
                 "Total for employee:</th></tr>"
     msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
 
-    return [msg,msgPrint]
+    return [msg, msgPrint]
 
 def getHoursAndWages(start, end):
 
