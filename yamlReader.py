@@ -1,10 +1,13 @@
 import yaml
+
 import drive
 
 # yaml file updating and loading
 drive.updateConfiguration()
+
 # yamlName must be the same as filename on Google Drive
 yamlName = "calculator_data.yml"
+
 yamlData = yaml.safe_load(open(yamlName))
 
 
@@ -40,3 +43,4 @@ def getHolidays():
 
 def getCalendarID():
     return yamlData.get('calendar_id')
+

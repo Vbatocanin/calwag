@@ -2,7 +2,6 @@
 
 ### Initial Setup
 
-
 Programmers:
 
 - Marko Petrovic

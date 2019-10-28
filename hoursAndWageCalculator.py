@@ -1,6 +1,8 @@
 from __future__ import print_function
 from datetime import datetime
+
 from datetime import timedelta
+
 from googleapiclient.discovery import build
 import dateFunctions
 import yamlReader
@@ -14,6 +16,7 @@ def formatMsg(beginTime,endTime):
     msgPrint = ""
 
     msgPrint = msgPrint + "\n"
+
     msgPrint = msgPrint + ("Wages from {}.{}.{} to {}.{}.{}\n".format(beginTime.day, beginTime.month, beginTime.year,
                                                                       endTime.day, endTime.month, endTime.year))
     msg = msg + "<tr><td colspan=" + str(6) + \
@@ -24,6 +27,7 @@ def formatMsg(beginTime,endTime):
     msgPrint = msgPrint + ("-------------------------------------------------------------------------------\n")
 
     return [msg, msgPrint]
+
 
 def getHoursAndWages(start, end):
 
@@ -49,7 +53,9 @@ def getHoursAndWages(start, end):
         # googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
 
         beginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay)
+
         endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay) - timedelta(seconds=1)
+
 
 
     # in case of only d1 inputted, calculates from d1.month,d1.day to d1.month+1,d1.day-1
@@ -133,6 +139,7 @@ def getHoursAndWages(start, end):
                     holidayInd = dateFunctions.isHoliday(tmpDateTime)
                     tmpHour = tmpDateTime.hour
                     if tmpDateTime.minute > 0:
+
                         tmpHour+=0.25
                     if holidayInd is True:
                         tmpSundayNum += 0.25
@@ -145,6 +152,7 @@ def getHoursAndWages(start, end):
                     elif (tmpHour >= 20):
                         tmpLateLateNum += 0.25
                     tmpDateTime = dateFunctions.getNextQuarterHourDate(tmpDateTime)
+
 
                 # WAGE CALCULATOR SUBSECTION
                 wage = normalCoef * tmpNormalNum + lateCoef * tmpLateNum + lateLateCoef * tmpLateLateNum + sundayCoef * tmpSundayNum
@@ -172,6 +180,7 @@ def getHoursAndWages(start, end):
         grandTotal)
 
     return msg, msgPrint, beginTime, endTime
+
 
 
 if __name__ == '__main__':
