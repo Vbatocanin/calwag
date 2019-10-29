@@ -128,9 +128,9 @@ def GetMessage(service, user_id, msg_id):
             <p>1. Your email must have the subject "<strong>Calwag</strong>" to get a response.</p>
             <p>2. Write dates in this format: <strong>dd.mm.yyyy</strong></p>
             <p>3. You can choose to send <strong>a blank email</strong> or <strong>2</strong> dates:</p>
-            <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the day that is stored in the calculator_data file from two months ago until the same day the following month. (example: the day in the calculator_data file is <strong>10</strong>. Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>9.9.2019</strong>)</p>
+            <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the 10. two months ago until the 10. of the following month. (Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>9.9.2019</strong>)</p>
             <p>&nbsp; &nbsp; <strong>2 dates:</strong> will return the wages between those 2 dates (the dates must be&nbsp;separated by a space, example: <strong>21.3.2019 31.3.2019</strong>)</p>
-            <p>4. To edit the calculator data click here: <a href="https://drive.google.com/file/d/1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq/view?usp=sharing">calculator data.</a>&nbsp;And choose Anyfile Notepad to open the file.</p>
+            </p>
             """ % msgEmail
 
         tempStartDay = beginTime.day
