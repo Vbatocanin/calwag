@@ -46,9 +46,8 @@ def getHoursAndWages(start, end):
         # reads default day and calculates wage from currentMonth-2,defaultDay to currentMonth-1,defaultDay
         defaultDay = yamlReader.getDefault()
 
-        [monthGoogleEnd, yearGoogleEnd] = dateFunctions.dateLastMonth(todayDate.month, todayDate.year)
+        [monthGoogleEnd, yearGoogleEnd] = dateFunctions.dateLastDefaultDay(todayDate.month, todayDate.year,todayDate.day,defaultDay)
         [monthGoogleBegin, yearGoogleBegin] = dateFunctions.dateLastMonth(monthGoogleEnd, yearGoogleEnd)
-
         # googleBeginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay).isoformat() + 'Z'
         # googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
 

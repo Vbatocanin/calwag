@@ -216,6 +216,19 @@ def getDates(start, end):
     except ValueError:
         return
 
+# returns month,year that are 1 month prior to month-1,year-1 if day<deault day, and month,day otherwise
+def dateLastDefaultDay(month, year,day,defaultDay):
+    if(day >= defaultDay):
+        return [month,year]
+    else:
+        if (month == 1):
+            month2 = 12
+            year2 = year - 1
+        else:
+            month2 = month - 1
+            year2 = year
+
+    return [month2, year2]
 
 
 def main():
@@ -225,4 +238,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
