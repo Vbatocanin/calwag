@@ -53,7 +53,7 @@ def getHoursAndWages(start, end):
 
         beginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay)
 
-        endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay) - timedelta(seconds=1)
+        endTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay) #- timedelta(seconds=1)
 
 
 
