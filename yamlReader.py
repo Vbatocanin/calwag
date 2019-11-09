@@ -12,10 +12,13 @@ yamlData = yaml.safe_load(open(yamlName))
 
 
 def getDefault():
+    drive.updateConfiguration()
+
     return int(yamlData.get('default_date_day'))
 
 
 def getEmployeesList():
+
     empList = []
     employees = yamlData.get('employees')
     for emp in employees:
@@ -25,6 +28,7 @@ def getEmployeesList():
 
 
 def getRulesList():
+
     rulesList=[]
     rules = yamlData.get('wage_rules')
     for rule in rules:
@@ -33,14 +37,17 @@ def getRulesList():
 
 
 def getYaml():
+
     return yamlName
 
 
 def getHolidays():
+
     # getting string representations in string form
     return yamlData.get('bank-holidays')
 
 
 def getCalendarID():
+
     return yamlData.get('calendar_id')
 

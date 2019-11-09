@@ -217,6 +217,10 @@ def getDates(start, end):
         return
 
 # returns month,year that are 1 month prior to month-1,year-1 if day<deault day, and month,day otherwise
+def dateThisDefaultDay(month, year,day,defaultDay):
+    return[month,year]
+
+
 def dateLastDefaultDay(month, year,day,defaultDay):
     if(day >= defaultDay):
         return [month,year]
