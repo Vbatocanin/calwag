@@ -10,9 +10,12 @@ yamlName = "calculator_data.yml"
 
 yamlData = yaml.safe_load(open(yamlName))
 
+def refresh():
+    drive.updateConfiguration()
+    global yamlData
+    yamlData = yaml.safe_load(open(yamlName))
 
 def getDefault():
-    drive.updateConfiguration()
 
     return int(yamlData.get('default_date_day'))
 

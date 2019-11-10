@@ -7,6 +7,37 @@ import hoursAndWageCalculator
 import dateFunctions
 import yamlReader
 
+def handleError(temp_dict, service, recipients, user_id, msg_id, errorMsg):
+    sender = temp_dict['Sender'][temp_dict['Sender'].find("<") + 1:temp_dict['Sender'].find(">")]
+    recipients.append(sender)
+    recipients = list(dict.fromkeys(recipients))
+
+    print("Error: ", type(Exception))
+    # in case of error, return an email informing the user an error occured, and label the faulty email as read
+    defaultDay = yamlReader.getDefault()
+    if errorMsg is None:
+        errorMsg="An error occured, this is most often caused by incorrectly formatting the inputed dates."
+    html = """
+                              <html>
+                                <head></head>
+                                <body>
+                                  %s
+                                </body>
+                              </html>
+                              <h2>CalWag instructions:</h2>
+                              <p>1. Your email must have the subject "<strong>Calwag</strong>" to get a response.</p>
+                              <p>2. Write dates in this format: <strong>dd.mm.yyyy</strong></p>
+                              <p>3. You can choose to send <strong>a blank email</strong> or <strong>2</strong> dates:</p>
+                              <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the """% errorMsg + defaultDay.__str__() + """ two months ago until the """ + defaultDay.__str__() + """ of the following month. (Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>9.9.2019</strong>)</p>
+                              <p>&nbsp; &nbsp; <strong>2 dates:</strong> will return the wages between those 2 dates (the dates must be&nbsp;separated by a space, example: <strong>21.3.2019 31.3.2019</strong>)</p>
+                              <p>4. To edit the calculator data click <a href="https://drive.google.com/open?id=1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq">here</a>, and choose Anyfile Notepad to open the file.</p></p>
+                              """
+    for recipient in recipients:
+        finalMessage = create_message("me", recipient,
+                                      "Error", html)
+        service.users().messages().send(userId="me", body=finalMessage).execute()
+    service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+
 
 def main():
     creds = getGoogleCredentials.getCreds()
@@ -92,6 +123,7 @@ def GetMessage(service, user_id, msg_id):
   temp_dict['Snippet'] = message['snippet']
 
   if subject[0].upper().strip() == 'CALWAG':
+      yamlReader.refresh()
       words = temp_dict['Snippet'].split()
       start = None
       end = None
@@ -118,7 +150,7 @@ def GetMessage(service, user_id, msg_id):
 
       try:
         if errorInd == 1:
-            raise Exception("Wrong format")
+            raise ValueError("Wrong format")
 
         msgEmail, msgPrint, beginTime, endTime = hoursAndWageCalculator.getHoursAndWages(start, end)
         print("Begin time: ",beginTime)
@@ -161,35 +193,18 @@ def GetMessage(service, user_id, msg_id):
         tempEndDay = endTime.day
         tempEndMonth = endTime.month
         tempEndYear = endTime.year
+        print(msgEmail)
         for recipient in recipients:
             finalMessage = create_message("me", recipient, "CalWag: " + str(tempStartDay) + "." + str(tempStartMonth) + "." + str(tempStartYear) + " - " + str(tempEndDay) + "." + str(tempEndMonth) + "." + str(tempEndYear), html)
             service.users().messages().send(userId="me", body=finalMessage).execute()
             print("Email sent successfully to: " + recipient)
         service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
-      except:
-        print('error')
-        #in case of error, return an email informing the user an error occured, and label the faulty email as read
-        defaultDay = yamlReader.getDefault()
-        html = """
-                    <html>
-                      <head></head>
-                      <body>
-                        An error occured, this is most often caused by incorrectly formatting the inputed dates.
-                      </body>
-                    </html>
-                    <h2>CalWag instructions:</h2>
-                    <p>1. Your email must have the subject "<strong>Calwag</strong>" to get a response.</p>
-                    <p>2. Write dates in this format: <strong>dd.mm.yyyy</strong></p>
-                    <p>3. You can choose to send <strong>a blank email</strong> or <strong>2</strong> dates:</p>
-                    <p>&nbsp; &nbsp; <strong>a blank email:</strong> will return wages from the """ +defaultDay.__str__()+ """ two months ago until the """ +defaultDay.__str__()+ """ of the following month. (Sending a blank email will get you wages from <strong>10.8.2019</strong> to <strong>9.9.2019</strong>)</p>
-                    <p>&nbsp; &nbsp; <strong>2 dates:</strong> will return the wages between those 2 dates (the dates must be&nbsp;separated by a space, example: <strong>21.3.2019 31.3.2019</strong>)</p>
-                    <p>4. To edit the calculator data click <a href="https://drive.google.com/open?id=1_GYHPCA1qwEehpspIHtvaRomw_fkpBzq">here</a>, and choose Anyfile Notepad to open the file.</p></p>
-                    """
-        for recipient in recipients:
-            finalMessage = create_message("me", recipient,
-                                          "Error", html)
-            service.users().messages().send(userId="me", body=finalMessage).execute()
-        service.users().messages().modify(userId=user_id, id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
+
+      except Exception:
+        handleError(temp_dict, service, recipients, user_id, msg_id, "Error: invalid date or wrong date format, must be dd.mm.yyyy")
+  else:
+      handleError(temp_dict, service, recipients, user_id, msg_id, "Error: subject of email must be calwag")
+
 
 
 if __name__ == '__main__':

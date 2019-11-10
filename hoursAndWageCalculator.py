@@ -118,7 +118,7 @@ def getHoursAndWages(start, end):
         for tmpEvent in events:
             if (-1 != tmpEvent['summary'].find(name) and -1 == tmpEvent['summary'].find(name + "s") and -1 == tmpEvent['summary'].find(name + " er borte")):
 
-                # checking if the event found is an all day event, which doesn not need to be processed
+                # checking if the event found is an all day event, which does not need to be processed
                 # note: all day events don't have the datetime key because they don't have start time
                 if ('dateTime' not in tmpEvent['start'].keys()):
                     continue

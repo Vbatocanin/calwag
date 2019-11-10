@@ -216,11 +216,11 @@ def getDates(start, end):
     except ValueError:
         return
 
-# returns month,year that are 1 month prior to month-1,year-1 if day<deault day, and month,day otherwise
+# returns current month and yeaar, constructed for the sole purpose of changing old code (dateLastDefaultDay) with a different function name
 def dateThisDefaultDay(month, year,day,defaultDay):
     return[month,year]
 
-
+# returns month,year that are 1 month prior to month-1,year-1 if day<deault day, and month,day otherwise
 def dateLastDefaultDay(month, year,day,defaultDay):
     if(day >= defaultDay):
         return [month,year]
