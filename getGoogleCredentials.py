@@ -6,7 +6,8 @@ from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file calendar.pickle.
 
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly', 'https://www.googleapis.com/auth/drive.metadata', 'https://www.googleapis.com/auth/drive', 'https://mail.google.com/']
+SCOPES = ['https://www.googleapis.com/auth/calendar.readonly', 'https://www.googleapis.com/auth/drive.metadata',
+          'https://www.googleapis.com/auth/drive', 'https://mail.google.com/']
 
 
 def getCreds():

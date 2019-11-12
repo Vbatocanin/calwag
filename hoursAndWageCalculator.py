@@ -9,7 +9,7 @@ import yamlReader
 import getGoogleCredentials
 
 
-def formatMsg(beginTime,endTime):
+def formatMsg(beginTime, endTime):
     # message to be sent by mail
     msg = ""
     # message to be printed to terminal
@@ -30,7 +30,6 @@ def formatMsg(beginTime,endTime):
 
 
 def getHoursAndWages(start, end):
-
     creds = getGoogleCredentials.getCreds()
     service = build('calendar', 'v3', credentials=creds)
 
@@ -46,7 +45,8 @@ def getHoursAndWages(start, end):
         # reads default day and calculates wage from currentMonth-2,defaultDay to currentMonth-1,defaultDay
         defaultDay = yamlReader.getDefault()
 
-        [monthGoogleEnd, yearGoogleEnd] = dateFunctions.dateThisDefaultDay(todayDate.month, todayDate.year,todayDate.day,defaultDay)
+        [monthGoogleEnd, yearGoogleEnd] = dateFunctions.dateThisDefaultDay(todayDate.month, todayDate.year,
+                                                                           todayDate.day, defaultDay)
         [monthGoogleBegin, yearGoogleBegin] = dateFunctions.dateLastMonth(monthGoogleEnd, yearGoogleEnd)
         # googleBeginTime = datetime(yearGoogleBegin, monthGoogleBegin, defaultDay).isoformat() + 'Z'
         # googleEndTime = datetime(yearGoogleEnd, monthGoogleEnd, defaultDay, 23, 59).isoformat() + 'Z'
@@ -69,8 +69,7 @@ def getHoursAndWages(start, end):
     googleEndTime = endTime.isoformat() + 'Z'
 
     # MSG FORMATTING
-    [msg,msgPrint] = formatMsg(beginTime,endTime)
-
+    [msg, msgPrint] = formatMsg(beginTime, endTime)
 
     # Call the Calendar API
     calendar = yamlReader.getCalendarID()
@@ -116,7 +115,8 @@ def getHoursAndWages(start, end):
         # counter is for determining if at least one event exists for a given worker
         counter = 0
         for tmpEvent in events:
-            if (-1 != tmpEvent['summary'].find(name) and -1 == tmpEvent['summary'].find(name + "s") and -1 == tmpEvent['summary'].find(name + " er borte")):
+            if (-1 != tmpEvent['summary'].find(name) and -1 == tmpEvent['summary'].find(name + "s") and -1 == tmpEvent[
+                'summary'].find(name + " er borte")):
 
                 # checking if the event found is an all day event, which does not need to be processed
                 # note: all day events don't have the datetime key because they don't have start time
@@ -148,7 +148,7 @@ def getHoursAndWages(start, end):
                     holidayInd = dateFunctions.isHoliday(tmpDateTime)
                     tmpHour = tmpDateTime.hour
                     if tmpDateTime.minute > 0:
-                        tmpHour+=0.25
+                        tmpHour += 0.25
                     if holidayInd is True:
                         tmpSundayNum += 0.25
                     elif tmpHour < 8:
@@ -161,7 +161,6 @@ def getHoursAndWages(start, end):
                         tmpLateLateNum += 0.25
                     tmpDateTime = dateFunctions.getNextQuarterHourDate(tmpDateTime)
 
-
                 # WAGE CALCULATOR SUBSECTION
                 wage = normalCoef * tmpNormalNum + lateCoef * tmpLateNum + lateLateCoef * tmpLateLateNum + sundayCoef * tmpSundayNum
                 grandTotal += wage
@@ -171,7 +170,6 @@ def getHoursAndWages(start, end):
                 lateLateNum += tmpLateLateNum
                 sundayNum += tmpSundayNum
         if counter != 0:
-
             msgPrint = msgPrint + (
                 "{:>10}: {:>5}x{} + {:>5}x{} + {:>5}x{} + {:>5}x{} = {:8.2f}\n".format(name, normalNum, normalCoef,
                                                                                        lateNum, lateCoef,
@@ -189,7 +187,6 @@ def getHoursAndWages(start, end):
         grandTotal)
 
     return msg, msgPrint, beginTime, endTime
-
 
 
 if __name__ == '__main__':

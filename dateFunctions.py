@@ -30,16 +30,17 @@ def getNextDayDate(date):
 
     return newDate
 
+
 def getPreviousDayDate(date):
     tmpDate = date + timedelta(days=-1)
     newDate = datetime(tmpDate.year, tmpDate.month, tmpDate.day, 0, 0)
 
     return newDate
 
-def convertDateToString(date):
-    retStr = str(date.year) + "."+str(date.month) +"."+str(date.day)
-    return retStr
 
+def convertDateToString(date):
+    retStr = str(date.year) + "." + str(date.month) + "." + str(date.day)
+    return retStr
 
 
 def getLastDayDate(date):
@@ -69,7 +70,6 @@ def isHoliday(curDate):
 
     for tmpDate in hSpecificDates:
         if day == tmpDate.day and month == tmpDate.month and year == tmpDate.year:
-
             return True
 
     return False
@@ -158,6 +158,7 @@ def closeEnough(startDate, endDate):
                         return True
     return False
 
+
 def reformat(date):
     if (date is not None):
         if (date[-1] == '.'):
@@ -183,14 +184,14 @@ def getDates(start, end):
 
             # finds the same day next month, or stops if the next month doesn't have that day. example: 31st of january to 31st of february
             endDateTmp = getNextDayDate(startDate)
-            while endDateTmp.day != startDate.day and endDateTmp.month != startDate.month+2:
+            while endDateTmp.day != startDate.day and endDateTmp.month != startDate.month + 2:
                 endDateTmp = getNextDayDate(endDateTmp)
 
             # subtracts 1 day if we have moved 2 months into the future
-            if startDate.month+2 == endDateTmp.month:
+            if startDate.month + 2 == endDateTmp.month:
                 endDate = getLastDayDate(endDateTmp)
             else:
-                endDate=endDateTmp
+                endDate = endDateTmp
 
             return [startDate, endDate]
 
@@ -216,14 +217,16 @@ def getDates(start, end):
     except ValueError:
         return
 
+
 # returns current month and yeaar, constructed for the sole purpose of changing old code (dateLastDefaultDay) with a different function name
-def dateThisDefaultDay(month, year,day,defaultDay):
-    return[month,year]
+def dateThisDefaultDay(month, year, day, defaultDay):
+    return [month, year]
+
 
 # returns month,year that are 1 month prior to month-1,year-1 if day<deault day, and month,day otherwise
-def dateLastDefaultDay(month, year,day,defaultDay):
-    if(day >= defaultDay):
-        return [month,year]
+def dateLastDefaultDay(month, year, day, defaultDay):
+    if (day >= defaultDay):
+        return [month, year]
     else:
         if (month == 1):
             month2 = 12
@@ -239,8 +242,5 @@ def main():
     return None
 
 
-
 if __name__ == '__main__':
     main()
-
-
