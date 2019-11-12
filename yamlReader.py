@@ -11,6 +11,12 @@ yamlName = "calculator_data.yml"
 yamlData = yaml.safe_load(open(yamlName))
 
 
+def refresh():
+    drive.updateConfiguration()
+    global yamlData
+    yamlData = yaml.safe_load(open(yamlName))
+
+
 def getDefault():
     return int(yamlData.get('default_date_day'))
 
@@ -25,7 +31,7 @@ def getEmployeesList():
 
 
 def getRulesList():
-    rulesList=[]
+    rulesList = []
     rules = yamlData.get('wage_rules')
     for rule in rules:
         rulesList.append(rule['rule'])
@@ -43,4 +49,3 @@ def getHolidays():
 
 def getCalendarID():
     return yamlData.get('calendar_id')
-

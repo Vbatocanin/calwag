@@ -1,9 +1,9 @@
 import hoursAndWageCalculator
 
 import argparse
+
 # FILE_NAME must be the same as filename on Google Drive
 FILE_NAME = "calculator_data.yml"
-
 
 
 def yamlName():
